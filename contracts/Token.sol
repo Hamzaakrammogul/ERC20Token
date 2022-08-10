@@ -45,17 +45,18 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
     function decreaseAllowance(address spender, uint subtractedValue) public whenNotPaused override returns (bool ) {
         return super.decreaseAllowance(spender, subtractedValue);
     }
+    //Modifeir that will make sure that only admin can pause the contract
      modifier onlyOwner{
-      
       require (msg.sender==admin, "only Owner can pause");
       _;
     }
-
-         function pausedSet() public  whenNotPaused  {
-            return super._pause();
+    //The function will Pause the function
+    function pausedSet() public onlyOwner whenNotPaused  {
+      return super._pause();
          }
-          function unPausedSet() public  whenPaused  {
-            return super._unpause();
+    //The function will unPause the function
+    function unPausedSet() public onlyOwner whenPaused  {
+        return super._unpause();
          }
  
  
