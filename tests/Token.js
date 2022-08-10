@@ -6,8 +6,8 @@ describe ("Token Contract", function(){
     });
 
     describe("Transfer", async function(){
-        
+
     });
 
 
-});
+}); 
