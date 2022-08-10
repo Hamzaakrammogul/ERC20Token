@@ -21,29 +21,29 @@ abstract contract Token is ERC20, Pausable{
  }
     // Transfer tokens when not paused
      
-    function transfer(address _to, uint256 _value) public whenNotPaused override returns (bool) {
-        return super.transfer(_to, _value);
+    function transfer(address to, uint256 amount) public whenNotPaused override returns (bool) {
+        return super.transfer(to, amount);
     }
     
     // transferFrom function to tansfer tokens when token is not paused
      
-    function transferFrom(address _from, address _to, uint256 _value) public whenNotPaused override returns (bool) {
-        return super.transferFrom(_from, _to, _value);
+    function transferFrom(address from, address to, uint256 amount) public whenNotPaused override returns (bool) {
+        return super.transferFrom(from, to, amount);
     }
     
     // approve spender when not paused
      
-    function approve(address _spender, uint256 _value) public whenNotPaused override returns (bool) {
-        return super.approve(_spender, _value);
+    function approve(address spender, uint256 amount) public whenNotPaused override returns (bool) {
+        return super.approve(spender, amount);
     }
     
    //increaseApproval of spender when not paused 
-    function increaseAllowance(address _spender, uint _addedValue) public whenNotPaused override returns (bool success) {
-        return super.increaseAllowance(_spender, _addedValue);
+    function increaseAllowance(address spender, uint addedValue) public whenNotPaused override returns (bool success) {
+        return super.increaseAllowance(spender, addedValue);
     }
    // decreaseApproval of spender when not paused
-    function decreaseAllowance(address _spender, uint _subtractedValue) public whenNotPaused override returns (bool success) {
-        return super.decreaseAllowance(_spender, _subtractedValue);
+    function decreaseAllowance(address spender, uint subtractedValue) public whenNotPaused override returns (bool success) {
+        return super.decreaseAllowance(spender, subtractedValue);
     }
 }
 contract RealToken is Token{
