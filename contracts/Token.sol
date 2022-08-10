@@ -3,15 +3,9 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
 
-
-
  contract Token is ERC20, Pausable{
        address public admin;
-        
-      
-    
-
-
+   
  constructor() Pausable()  ERC20 ('MyToken', 'HAT') {
     _mint(msg.sender, 10000*10**18);
     admin= msg.sender;
