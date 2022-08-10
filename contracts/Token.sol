@@ -5,8 +5,11 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
 
 
 
-abstract contract Token is ERC20, Pausable{
-    address public admin;
+
+ contract Token is ERC20, Pausable{
+       address public admin;
+      bool public pause=true;
+    
 
 
  constructor() Pausable()  ERC20 ('MyToken', 'HAT') {
@@ -48,7 +51,6 @@ abstract contract Token is ERC20, Pausable{
     function decreaseAllowance(address spender, uint subtractedValue) public whenNotPaused override returns (bool ) {
         return super.decreaseAllowance(spender, subtractedValue);
     }
-}
-contract RealToken is Token{
-    
+
+
 }
