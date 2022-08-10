@@ -3,10 +3,12 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
 
+
+
 abstract contract Token is ERC20, Pausable{
     address public admin;
 
- constructor() Pausable() ERC20 ('MyToken', 'HAT') {
+ constructor() Pausable()  ERC20 ('MyToken', 'HAT') {
     _mint(msg.sender, 10000*10**18);
     admin= msg.sender;
  }
@@ -38,11 +40,11 @@ abstract contract Token is ERC20, Pausable{
     }
     
    //increaseApproval of spender when not paused 
-    function increaseAllowance(address spender, uint addedValue) public whenNotPaused override returns (bool success) {
+    function increaseAllowance(address spender, uint addedValue) public whenNotPaused override returns (bool ) {
         return super.increaseAllowance(spender, addedValue);
     }
    // decreaseApproval of spender when not paused
-    function decreaseAllowance(address spender, uint subtractedValue) public whenNotPaused override returns (bool success) {
+    function decreaseAllowance(address spender, uint subtractedValue) public whenNotPaused override returns (bool ) {
         return super.decreaseAllowance(spender, subtractedValue);
     }
 }
