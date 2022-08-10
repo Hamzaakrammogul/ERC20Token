@@ -19,6 +19,32 @@ abstract contract Token is ERC20, Pausable{
  function burn(uint amount) whenPaused() external{ 
     _burn(msg.sender, amount);
  }
+    // Transfer tokens when not paused
+     
+    function transfer(address _to, uint256 _value) public whenNotPaused override returns (bool) {
+        return super.transfer(_to, _value);
+    }
+    
+    // transferFrom function to tansfer tokens when token is not paused
+     
+    function transferFrom(address _from, address _to, uint256 _value) public whenNotPaused override returns (bool) {
+        return super.transferFrom(_from, _to, _value);
+    }
+    
+    // approve spender when not paused
+     
+    function approve(address _spender, uint256 _value) public whenNotPaused override returns (bool) {
+        return super.approve(_spender, _value);
+    }
+    
+   //increaseApproval of spender when not paused 
+    function increaseAllowance(address _spender, uint _addedValue) public whenNotPaused override returns (bool success) {
+        return super.increaseAllowance(_spender, _addedValue);
+    }
+   // decreaseApproval of spender when not paused
+    function decreaseAllowance(address _spender, uint _subtractedValue) public whenNotPaused override returns (bool success) {
+        return super.decreaseAllowance(_spender, _subtractedValue);
+    }
 }
 contract RealToken is Token{
     
