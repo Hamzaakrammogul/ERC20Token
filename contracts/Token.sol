@@ -21,19 +21,19 @@ abstract contract Token is ERC20, Pausable{
  function burn(uint amount) whenPaused() external{ 
     _burn(msg.sender, amount);
  }
-    // Transfer tokens when not paused
+   //Transfer tokens when not paused
      
     function transfer(address to, uint256 amount) public whenNotPaused override returns (bool) {
         return super.transfer(to, amount);
     }
     
-    // transferFrom function to tansfer tokens when token is not paused
+   //transferFrom function to tansfer tokens when token is not paused
      
     function transferFrom(address from, address to, uint256 amount) public whenNotPaused override returns (bool) {
         return super.transferFrom(from, to, amount);
     }
     
-    // approve spender when not paused
+   //approve spender when not paused
      
     function approve(address spender, uint256 amount) public whenNotPaused override returns (bool) {
         return super.approve(spender, amount);
