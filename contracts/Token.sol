@@ -5,9 +5,10 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
 
 
 
-
  contract Token is ERC20, Pausable{
        address public admin;
+        
+      
     
 
 
@@ -51,13 +52,17 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
         return super.decreaseAllowance(spender, subtractedValue);
     }
      modifier onlyOwner{
-      address owner;
-      require (msg.sender==owner, "only Owner can pause");
+      
+      require (msg.sender==admin, "only Owner can pause");
       _;
     }
 
-    
-
-    
-
+         function pausedSet() public  whenNotPaused  {
+            return super._pause();
+         }
+          function unPausedSet() public  whenPaused  {
+            return super._unpause();
+         }
+ 
+ 
 }
