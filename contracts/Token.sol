@@ -13,14 +13,14 @@ contract Ownable{
 
     //Modifeir that will make sure that only admin can pause the contract
      modifier onlyOwner{
-      require (msg.sender==admin, "only Owner can pause");
+      require (msg.sender==admin, "only Owner can access");
       _;
     }
     //This function will transfer ownership from admin to new admin
     function transferOwnership(address _to) public onlyOwner {
         newAdmin = _to;
     }
-    //This function will be used by newAdmin/newOwner to accept ownership
+    //This function will be used by newAd min/newOwner to accept ownership
     function acceptOwnership() public {
         require(msg.sender == newAdmin);
         emit OwnershipTransferred(admin, newAdmin);
