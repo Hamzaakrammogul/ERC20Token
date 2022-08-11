@@ -31,7 +31,7 @@ contract Ownable{
 
  contract Token is ERC20, Pausable, Ownable{
 
- constructor() Pausable()  ERC20 ('MyToken', 'HAT')  {
+ constructor() Pausable() Ownable() ERC20 ('MyToken', 'HAT')  {
     _mint(msg.sender, 10000*10**18);
     admin= msg.sender;
  }
