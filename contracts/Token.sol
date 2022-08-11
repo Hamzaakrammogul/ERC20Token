@@ -3,10 +3,36 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
 
- contract Token is ERC20, Pausable{
-       address public admin;
-   
- constructor() Pausable()  ERC20 ('MyToken', 'HAT') {
+contract Ownable{
+    //Admin is whoever deploy the contract
+       address  public admin;
+    //newAdmin is whoever gets the ownership of this contract next
+       address  public newAdmin;
+    //An event that will emitted whenever ownership transferred sucessfully
+       event OwnershipTransferred(address indexed _from, address indexed _to);
+
+    //Modifeir that will make sure that only admin can pause the contract
+     modifier onlyOwner{
+      require (msg.sender==admin, "only Owner can pause");
+      _;
+    }
+    //This function will transfer ownership from admin to new admin
+    function transferOwnership(address _to) public onlyOwner {
+        newAdmin = _to;
+    }
+    //This function will be used by newAdmin/newOwner to accept ownership
+    function acceptOwnership() public {
+        require(msg.sender == newAdmin);
+        emit OwnershipTransferred(admin, newAdmin);
+        admin = newAdmin;
+        newAdmin = address(0);
+    }
+ 
+}
+
+ contract Token is ERC20, Pausable, Ownable{
+
+ constructor() Pausable()  ERC20 ('MyToken', 'HAT')  {
     _mint(msg.sender, 10000*10**18);
     admin= msg.sender;
  }
@@ -45,19 +71,13 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
     function decreaseAllowance(address spender, uint subtractedValue) public whenNotPaused override returns (bool ) {
         return super.decreaseAllowance(spender, subtractedValue);
     }
-    //Modifeir that will make sure that only admin can pause the contract
-     modifier onlyOwner{
-      require (msg.sender==admin, "only Owner can pause");
-      _;
-    }
-    //The function will Pause the function
+
+    //This function will Pause the function
     function pausedSet() public onlyOwner whenNotPaused  {
       return super._pause();
          }
-    //The function will unPause the function
+    //This function will unPause the function
     function unPausedSet() public onlyOwner whenPaused  {
         return super._unpause();
          }
- 
- 
 }
