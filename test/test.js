@@ -6,7 +6,7 @@ describe ("Token Contract Testing", function(){
     let name = 'My Token';
     let symbol = 'HAT';
     let decimals= 18;
-       
+
     beforeEach(async function(){
          [admin, addr1, addr2]= await ethers.getSigners();
          Token= await ethers.getContractFactory("Token");
@@ -45,12 +45,21 @@ describe ("Token Contract Testing", function(){
             expect(await hardhatToken.balanceOf(addr1.address)).to.equal(10);
         })
         it("Transfer From", async function(){
-           // const adminBalance= await hardhatToken.balanceOf(admin.address);
-           // const addr2Balance= await hardhatToken.balanceOf(addr2.address);
-           // await hardhatToken.transfer(addr1.address, 10);
-            await hardhatToken.allowance(addr1.address, addr2.address);
-            await hardhatToken.approve(addr2.address, 10);
-            await hardhatToken.transferFrom(addr1.address, addr2.address, 10);
+            await hardhatToken.transfer(addr1.address, 100);
+            const addr1balance = await hardhatToken.balanceOf(addr1.address);
+            expect(addr1balance).to.equal(100);
+            let adminBalanceBeforeTransfer = await hardhatToken.balanceOf(admin.address);
+            let addr2BalanceBeforeTransfer = await hardhatToken.balanceOf(addr2.address);
+            await hardhatToken.allowance(admin.address, addr1.address);
+            await hardhatToken.increaseAllowance(addr1.address, 100);
+            await hardhatToken.approve(addr1.address, 100);
+            await hardhatToken.transferFrom(addr1.address, addr2.address, 100,);
+
+            let adminBalanceAfterTransfer = await hardhatToken.balanceOf(admin.address);
+            let addr2BalanceAfterTransfer = await hardhatToken.balanceOf(addr2.address);
+
+            expect(adminBalanceAfterTransfer).to.equal((adminBalanceBeforeTransfer.sub(100)));
+            expect(addr2BalanceAfterTransfer).to.equal(addr2BalanceBeforeTransfer.add(100));
         });
     });
 });
