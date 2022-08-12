@@ -48,8 +48,10 @@ describe ("Token Contract Testing", function(){
             await hardhatToken.transfer(addr1.address, 100);
             const addr1balance = await hardhatToken.balanceOf(addr1.address);
             expect(addr1balance).to.equal(100);
+
             let adminBalanceBeforeTransfer = await hardhatToken.balanceOf(admin.address);
             let addr2BalanceBeforeTransfer = await hardhatToken.balanceOf(addr2.address);
+            
             await hardhatToken.allowance(admin.address, addr1.address);
             await hardhatToken.increaseAllowance(addr1.address, 100);
             await hardhatToken.approve(addr1.address, 100);
