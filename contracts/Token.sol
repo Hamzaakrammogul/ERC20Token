@@ -31,8 +31,8 @@ contract Ownable{
 
  contract Token is ERC20, Pausable, Ownable{
 
- constructor() Pausable() Ownable() ERC20 ('MyToken', 'HAT')  {
-    _mint(msg.sender, 10000*10**18);
+ constructor() Pausable() Ownable() ERC20 ('My Token', 'HAT')  {
+    _mint(msg.sender, 10000);
     admin= msg.sender;
  }
 
@@ -81,4 +81,8 @@ contract Ownable{
     function unPausedSet() public onlyOwner whenPaused  {
         return super._unpause();
          }
+          function decimals() public view virtual override returns (uint8) {
+        return 18;
+    }
+
 }
