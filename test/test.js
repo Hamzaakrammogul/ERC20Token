@@ -27,7 +27,7 @@ describe ("Token Contract Testing", function(){
         });      
         it("Checking the Balance of Account", async function(){
             const ownerBalance= await hardhatToken.balanceOf(admin.address);
-            expect(ownerBalance).to.equal(10000);
+            expect(ownerBalance).to.equal(1000000);
             expect(await hardhatToken.totalSupply()).to.equal(ownerBalance);
                 });
     });
@@ -45,23 +45,25 @@ describe ("Token Contract Testing", function(){
             expect(await hardhatToken.balanceOf(addr1.address)).to.equal(10);
         })
         it("Transfer From", async function(){
-            await hardhatToken.transfer(addr1.address, 100);
+          /* await hardhatToken.transfer(addr1.address, 100);
             const addr1balance = await hardhatToken.balanceOf(addr1.address);
             expect(addr1balance).to.equal(100);
 
             let adminBalanceBeforeTransfer = await hardhatToken.balanceOf(admin.address);
             let addr2BalanceBeforeTransfer = await hardhatToken.balanceOf(addr2.address);
-            
-            await hardhatToken.allowance(admin.address, addr1.address);
-            await hardhatToken.increaseAllowance(addr1.address, 100);
-            await hardhatToken.approve(addr1.address, 100);
-            await hardhatToken.transferFrom(addr1.address, addr2.address, 100,);
 
+            await hardhatToken.allowance(admin.address, addr1.address);
+            await hardhatToken.transferFrom(addr1.address, addr2.address, 100,);
+            await hardhatToken.approve(addr1.address, 100);
             let adminBalanceAfterTransfer = await hardhatToken.balanceOf(admin.address);
             let addr2BalanceAfterTransfer = await hardhatToken.balanceOf(addr2.address);
 
             expect(adminBalanceAfterTransfer).to.equal((adminBalanceBeforeTransfer.sub(100)));
-            expect(addr2BalanceAfterTransfer).to.equal(addr2BalanceBeforeTransfer.add(100));
+            expect(addr2BalanceAfterTransfer).to.equal(addr2BalanceBeforeTransfer.add(100));*/
+            await hardhatToken.connect(addr1).approve(admin.address, ethers.utils.parseEther("10"));
+            await hardhatToken.transfer(addr1.address, ethers.utils.parseEther("10"));
+            await hardhatToken.transferFrom(addr1.address, addr2.address, ethers.utils.parseEther("10"));
+            expect(await hardhatToken.balanceOf(addr2.address)).to.equal(ethers.utils.parseEther("10"));
         });
     });
 });
