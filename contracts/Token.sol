@@ -19,7 +19,7 @@ contract Ownable{
     function transferOwnership(address _to) public onlyOwner {
         newAdmin = _to;
     }
-    
+
     function acceptOwnership() public {
         require(msg.sender == newAdmin);
         emit OwnershipTransferred(admin, newAdmin);
@@ -31,7 +31,7 @@ contract Ownable{
  contract Token is ERC20, Pausable, Ownable{
 
  constructor() Pausable() Ownable() ERC20 ('My Token', 'HAT')  {
-    _mint(msg.sender, 1000000);
+    _mint(msg.sender, 1000000 * 10 **18);
     admin= msg.sender;
  }
 
@@ -40,7 +40,7 @@ contract Ownable{
     _mint(to, amount);
  }
 
- function burn(uint amount) whenPaused() external{ 
+ function burn(uint amount) external{ 
     _burn(msg.sender, amount);
  } 
 
