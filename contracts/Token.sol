@@ -27,8 +27,9 @@ contract Ownable{
     }
 }
  contract Token is ERC20, Pausable, Ownable{
-
+ 
     constructor() Pausable() Ownable() ERC20 ('My Token', 'HAT')  {
+    
         _mint(msg.sender, 1000000 * 10 **18);
         admin= msg.sender;}
 
@@ -43,6 +44,7 @@ contract Ownable{
         return 18; }
 
     function transfer(address to, uint256 amount) public whenNotPaused override returns (bool) {
+        require(balanceOf(msg.sender)>=amount, "Insufficient Balance");
         return super.transfer(to, amount);  }
 
     function transferFrom(address from, address to, uint256 amount) public whenNotPaused override returns (bool) {

@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\Ameer Hamza\\Documents\\GitHub\\ERC20Token\\contracts\\Token.sol": {
-      "lastModificationDate": 1660552896840,
-      "contentHash": "05016325f64c006361777c2e889f7a38",
+      "lastModificationDate": 1660576235737,
+      "contentHash": "3d72e8820b6e2ff007b385aae60496e1",
       "sourceName": "contracts/Token.sol",
       "solcConfig": {
         "version": "0.8.9",

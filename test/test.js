@@ -32,16 +32,16 @@ describe ("Token Contract Testing", function(){
     });
     describe("Transactional",function(){
         it("Transfer", async function(){
-            await hardhatToken.transfer(addr1.address, 10);
+            await hardhatToken.transfer(addr1.address, ethers.utils.parseEther("1000000"));
             const addr1Balance= await hardhatToken.balanceOf(addr1.address);
-            expect (addr1Balance).to.equal(10);
+            expect (addr1Balance).to.equal(ethers.utils.parseEther("1000000"));
         });
         it("Transfer Between Accounts", async function (){
-            await hardhatToken.transfer(addr1.address, 20);
-            await hardhatToken.connect(addr1).transfer(addr2.address, 10);
+            await hardhatToken.transfer(addr1.address, ethers.utils.parseEther("2000"));
+            await hardhatToken.connect(addr1).transfer(addr2.address, ethers.utils.parseEther("1000"));
             const addr2Balance= await hardhatToken.balanceOf(addr2.address);
-            expect(addr2Balance).to.equal(10);
-            expect(await hardhatToken.balanceOf(addr1.address)).to.equal(10);
+            expect(addr2Balance).to.equal(ethers.utils.parseEther("1000"));
+            expect(await hardhatToken.balanceOf(addr1.address)).to.equal(ethers.utils.parseEther("1000"));
         })
         it("Transfer From", async function(){
             await hardhatToken.connect(addr1).approve(admin.address, ethers.utils.parseEther("100"));
