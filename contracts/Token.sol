@@ -6,16 +6,16 @@ contract Ownable{
 
     //Admin is whoever deploy the contract
     address  public admin;
-    
+
     //newAdmin is whoever gets the ownership of this contract next
     address  public newAdmin;
 
     event OwnershipTransferred(address indexed _from, address indexed _to);
 
     modifier onlyOwner{
-      require (msg.sender==admin, "only Owner can access");
-      _;}
-
+        require (msg.sender==admin, "only Owner can access");
+  _;}
+  
     function transferOwnership(address _to) public onlyOwner {
         newAdmin = _to; }
     
@@ -39,35 +39,27 @@ contract Ownable{
     function burn(uint amount) onlyOwner external{ 
         _burn(msg.sender, amount);} 
 
+    function decimals() public view virtual override returns (uint8) {
+        return 18; }
+
     function transfer(address to, uint256 amount) public whenNotPaused override returns (bool) {
-        return super.transfer(to, amount);
-    }
+        return super.transfer(to, amount);  }
 
     function transferFrom(address from, address to, uint256 amount) public whenNotPaused override returns (bool) {
-        return super.transferFrom(from, to, amount);
-    }
+        return super.transferFrom(from, to, amount);  }
 
     function approve(address spender, uint256 amount) public whenNotPaused override returns (bool) {
-        return super.approve(spender, amount);
-    }
+        return super.approve(spender, amount); }
 
     function increaseAllowance(address spender, uint addedValue) public whenNotPaused override returns (bool ) {
-        return super.increaseAllowance(spender, addedValue);
-    }
+        return super.increaseAllowance(spender, addedValue); }
 
     function decreaseAllowance(address spender, uint subtractedValue) public whenNotPaused override returns (bool ) {
-        return super.decreaseAllowance(spender, subtractedValue);
-    }
+        return super.decreaseAllowance(spender, subtractedValue); }
 
     function pausedSet() public onlyOwner whenNotPaused  {
-      return super._pause();
-         }
+        return super._pause();   }
 
     function unPausedSet() public onlyOwner whenPaused  {
-        return super._unpause();
-         }
-          function decimals() public view virtual override returns (uint8) {
-        return 18;
-    }
-
+        return super._unpause();  }   
 }
