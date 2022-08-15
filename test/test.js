@@ -5,7 +5,7 @@ describe ("Token Contract Testing", function(){
     let addr2;
     let name = 'My Token';
     let symbol = 'HAT';
-    let decimals= 18;
+    let decimals= 18; 
 
     beforeEach(async function(){
          [admin, addr1, addr2]= await ethers.getSigners();
@@ -27,7 +27,7 @@ describe ("Token Contract Testing", function(){
         });      
         it("Checking the Balance of Account", async function(){
             const adminBalance= await hardhatToken.balanceOf(admin.address);
-            expect(ethers.utils.formatEther(adminBalance) == 1000000);     
+            expect(ethers.utils.formatEther(adminBalance)).to.equal("1000000.0");     
                 });
     });
     describe("Transactional",function(){
@@ -54,9 +54,9 @@ describe ("Token Contract Testing", function(){
     });
     describe("Burnable", function(){
         it("This should burn the extra tokens", async function(){
-            await hardhatToken.burn(ethers.utils.parseEther("1000000"));
+            await hardhatToken.burn(ethers.utils.parseEther("500000"));
             const adminBalanceburn= await hardhatToken.balanceOf(admin.address);
-            expect(ethers.utils.formatEther(adminBalanceburn)).to.equal("0.0");
+            expect(ethers.utils.formatEther(adminBalanceburn)).to.equal("500000.0");
         });
     });
 });
