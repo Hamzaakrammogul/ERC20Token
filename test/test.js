@@ -27,8 +27,7 @@ describe ("Token Contract Testing", function(){
         });      
         it("Checking the Balance of Account", async function(){
             const adminBalance= await hardhatToken.balanceOf(admin.address);
-            expect(ethers.utils.formatEther(adminBalance) == 1000000);
-        
+            expect(ethers.utils.formatEther(adminBalance) == 1000000);     
                 });
     });
     describe("Transactional",function(){
@@ -55,9 +54,9 @@ describe ("Token Contract Testing", function(){
     });
     describe("Burnable", function(){
         it("This should burn the extra tokens", async function(){
-            await hardhatToken.burn(ethers.utils.parseEther("100"));
+            await hardhatToken.burn(ethers.utils.parseEther("1000000"));
             const adminBalanceburn= await hardhatToken.balanceOf(admin.address);
-            expect(ethers.utils.formatEther(adminBalanceburn)==999899999999999999999900);
+            expect(ethers.utils.formatEther(adminBalanceburn)).to.equal("0.0");
         });
     });
 }); 

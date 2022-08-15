@@ -40,7 +40,7 @@ contract Ownable{
     _mint(to, amount);
  }
 
- function burn(uint amount) external{ 
+ function burn(uint amount) onlyOwner external{ 
     _burn(msg.sender, amount);
  } 
 
