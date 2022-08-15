@@ -2,24 +2,23 @@
 pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
-
 contract Ownable{
-    //Admin is whoever deploy the contract
-       address  public admin;
-    //newAdmin is whoever gets the ownership of this contract next
-       address  public newAdmin;
-    //An event that will emitted whenever ownership transferred sucessfully
-       event OwnershipTransferred(address indexed _from, address indexed _to);
 
-     modifier onlyOwner{
+    //Admin is whoever deploy the contract
+    address  public admin;
+    
+    //newAdmin is whoever gets the ownership of this contract next
+    address  public newAdmin;
+
+    event OwnershipTransferred(address indexed _from, address indexed _to);
+
+    modifier onlyOwner{
       require (msg.sender==admin, "only Owner can access");
-      _;
-    }
+      _;}
 
     function transferOwnership(address _to) public onlyOwner {
-        newAdmin = _to;
-    }
-
+        newAdmin = _to; }
+    
     function acceptOwnership() public {
         require(msg.sender == newAdmin);
         emit OwnershipTransferred(admin, newAdmin);
@@ -27,22 +26,18 @@ contract Ownable{
         newAdmin = address(0);
     }
 }
-
  contract Token is ERC20, Pausable, Ownable{
 
- constructor() Pausable() Ownable() ERC20 ('My Token', 'HAT')  {
-    _mint(msg.sender, 1000000 * 10 **18);
-    admin= msg.sender;
- }
+    constructor() Pausable() Ownable() ERC20 ('My Token', 'HAT')  {
+        _mint(msg.sender, 1000000 * 10 **18);
+        admin= msg.sender;}
 
- function mint(address to, uint amount) whenNotPaused external {
-    require(msg.sender==admin,"Only Admin");
-    _mint(to, amount);
- }
+    function mint(address to, uint amount) whenNotPaused external {
+        require(msg.sender==admin,"Only Admin");
+        _mint(to, amount);}
 
- function burn(uint amount) onlyOwner external{ 
-    _burn(msg.sender, amount);
- } 
+    function burn(uint amount) onlyOwner external{ 
+        _burn(msg.sender, amount);} 
 
     function transfer(address to, uint256 amount) public whenNotPaused override returns (bool) {
         return super.transfer(to, amount);
