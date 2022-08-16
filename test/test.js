@@ -1,4 +1,6 @@
 const{expect}= require("chai");
+const {BigNumber}= require("@ethersproject/bignumber");
+
 describe ("Token Contract Testing", function(){
     let admin;
     let addr1;

@@ -38,7 +38,7 @@ contract Ownable{
         _mint(to, amount);}
 
     function burn(uint amount) onlyOwner external{ 
-        _burn(msg.sender, amount);} 
+        _burn(msg.sender, amount);}  
 
     function decimals() public view virtual override returns (uint8) {
         return 18; }
