@@ -1,5 +1,5 @@
 # ERC20Token
-Implementaton of erc20 token using Openzeppelin Lib
+# Implementaton of erc20 token using Openzeppelin Lib
 
                                    /////How to compile smart contract using Remix IDE/////
 Remix IDE is generally used to compile and run Solidity smart contracts. Below are the steps for the compilation, execution, and debugging of the smart contract.
