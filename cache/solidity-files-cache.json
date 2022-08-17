@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\Ameer Hamza\\Documents\\GitHub\\ERC20Token\\contracts\\Token.sol": {
-      "lastModificationDate": 1660658007108,
-      "contentHash": "22c27b2ab5c0605a4dc40587f348fda5",
+      "lastModificationDate": 1660732534124,
+      "contentHash": "ab5ad9fc7b91af1482a7958bd232fecf",
       "sourceName": "contracts/Token.sol",
       "solcConfig": {
         "version": "0.8.9",
@@ -25,6 +25,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -64,6 +67,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -103,6 +109,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -141,6 +150,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -176,6 +188,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -213,6 +228,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -248,6 +266,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },

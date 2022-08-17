@@ -1,5 +1,5 @@
-const{expect}= require("chai");
-const {BigNumber}= require("@ethersproject/bignumber");
+const{expect, assert}= require("chai");
+//const {BigNumber}= require("@ethersproject/bignumber");
 
 describe ("Token Contract Testing", function(){
     let admin;
@@ -21,7 +21,9 @@ describe ("Token Contract Testing", function(){
             expect(await hardhatToken.symbol()).to.equal(symbol);
         });
         it('has 18 decimals', async function () {
-            expect(await hardhatToken.decimals()).to.be.equal(decimals);
+            //expect(await hardhatToken.decimals()).to.be.equal(decimals);
+            const cvalue=await hardhatToken.decimals();
+            assert.equal(cvalue, decimals);
         }); 
     describe("Deployment", function(){
         it ("Check the Owner", async function(){        
@@ -44,7 +46,8 @@ describe ("Token Contract Testing", function(){
             const addr2Balance= await hardhatToken.balanceOf(addr2.address);
             expect(addr2Balance).to.equal(ethers.utils.parseEther("1000"));
             expect(await hardhatToken.balanceOf(addr1.address)).to.equal(ethers.utils.parseEther("1000"));
-        })
+        });
+
         it("Transfer From", async function(){
             await hardhatToken.connect(addr1).approve(admin.address, ethers.utils.parseEther("100"));
             await hardhatToken.transfer(addr1.address, ethers.utils.parseEther("100"));
@@ -54,6 +57,14 @@ describe ("Token Contract Testing", function(){
             expect(await hardhatToken.balanceOf(addr2.address)).to.equal(ethers.utils.parseEther("100"));
         });
     });
+    describe("Approve functions", function(){
+        beforeEach("Approve spender to spend on behalf on admin",async function(){
+            await hardhatToken.approve(addr1.address, ethers.utils.parseEther("100"), {from: admin.address})
+        });
+        it('emits an approval event', async function () {
+        expect(await hardhatToken.decreaseAllowance(addr1.address, ethers.utils.parseEther("100")),
+            'Approval',{ owner: admin, spender: addr1.address, value: ethers.utils.parseEther("100")});});
+        });
     describe("Burnable", function(){
         it("This should burn the extra tokens", async function(){
             await hardhatToken.burn(ethers.utils.parseEther("500000"));

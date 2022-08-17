@@ -43,25 +43,25 @@ contract Ownable{
     function decimals() public view virtual override returns (uint8) {
         return 18; }
 
-    function transfer(address to, uint256 amount) public whenNotPaused override returns (bool) {
+    function transfer(address to, uint256 amount) public whenNotPaused override returns (bool success) {
         require(balanceOf(msg.sender)>=amount, "Insufficient Balance");
         return super.transfer(to, amount);  }
 
-    function transferFrom(address from, address to, uint256 amount) public whenNotPaused override returns (bool) {
+    function transferFrom(address from, address to, uint256 amount) public whenNotPaused override returns (bool success) {
         return super.transferFrom(from, to, amount);  }
 
-    function approve(address spender, uint256 amount) public whenNotPaused override returns (bool) {
+    function approve(address spender, uint256 amount) public whenNotPaused override returns (bool success) {
         return super.approve(spender, amount); }
 
-    function increaseAllowance(address spender, uint addedValue) public whenNotPaused override returns (bool ) {
+    function increaseAllowance(address spender, uint addedValue) public whenNotPaused override returns (bool success) {
         return super.increaseAllowance(spender, addedValue); }
 
-    function decreaseAllowance(address spender, uint subtractedValue) public whenNotPaused override returns (bool ) {
+    function decreaseAllowance(address spender, uint subtractedValue) public whenNotPaused override returns (bool success) {
         return super.decreaseAllowance(spender, subtractedValue); }
 
-    function pausedSet() public onlyOwner whenNotPaused  {
+    function pausedSet() public onlyOwner whenNotPaused{
         return super._pause();   }
 
-    function unPausedSet() public onlyOwner whenPaused  {
+    function unPausedSet() public onlyOwner whenPaused{
         return super._unpause();  }   
 }
