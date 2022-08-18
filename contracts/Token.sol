@@ -1,5 +1,6 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
+import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
 contract Ownable{
@@ -29,8 +30,7 @@ contract Ownable{
  contract Token is ERC20, Pausable, Ownable{
  
     constructor() Pausable() Ownable() ERC20 ('My Token', 'HAT')  {
-    
-        _mint(msg.sender, 1000000 * 10 **18);
+        _mint(msg.sender, 1000000*10**18);
         admin= msg.sender;}
 
     function mint(address to, uint amount) whenNotPaused external {
@@ -44,13 +44,17 @@ contract Ownable{
         return 18; }
 
     function transfer(address to, uint256 amount) public whenNotPaused override returns (bool success) {
+        console.log("Trying to send %s tokens to %s", amount , to);
         require(balanceOf(msg.sender)>=amount, "Insufficient Balance");
         return super.transfer(to, amount);  }
 
     function transferFrom(address from, address to, uint256 amount) public whenNotPaused override returns (bool success) {
+        console.log("letting %s spend %s tokens on %s", from, amount, to);
+        require(amount<=balanceOf(from), "Insufficient Balance");
         return super.transferFrom(from, to, amount);  }
 
     function approve(address spender, uint256 amount) public whenNotPaused override returns (bool success) {
+        console.log ("aprrove %s to spend token of amount %s", spender, amount);
         return super.approve(spender, amount); }
 
     function increaseAllowance(address spender, uint addedValue) public whenNotPaused override returns (bool success) {
