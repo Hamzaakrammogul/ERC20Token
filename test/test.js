@@ -5,7 +5,6 @@ describe ("Token Contract Testing", function(){
     let admin;
     let addr1;
     let addr2;
-    let attacker;
     let name = 'My Token';
     let symbol = 'HAT';
     let decimals= 18; 
@@ -59,12 +58,13 @@ describe ("Token Contract Testing", function(){
     });
     describe("Approve functions", function(){
         beforeEach("Approve spender to spend on behalf on admin",async function(){
-            await hardhatToken.approve(addr1.address, ethers.utils.parseEther("100"), {from: admin.address})
+            await hardhatToken.approve(addr1.address, ethers.utils.parseEther("100"))
         });
         it('emits an approval event', async function () {
-        expect(await hardhatToken.decreaseAllowance(addr1.address, ethers.utils.parseEther("100")),
-            'Approval',{ owner: admin, spender: addr1.address, value: ethers.utils.parseEther("100")});});
+            expect(await hardhatToken.decreaseAllowance(addr1.address, ethers.utils.parseEther("100")),
+            'Approval',{ owner: admin, spender: addr1.address, value: ethers.utils.parseEther("100")});
         });
+ });
     describe("Burnable", function(){
         it("This should burn the extra tokens", async function(){
             const adminBalanceBeforeBurn= await hardhatToken.balanceOf(admin.address);
