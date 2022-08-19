@@ -1,5 +1,4 @@
 const{expect, assert}= require("chai");
-//const {BigNumber}= require("@ethersproject/bignumber");
 
 describe ("Token Contract Testing", function(){
     let admin;
@@ -10,9 +9,9 @@ describe ("Token Contract Testing", function(){
     let decimals= 18; 
 
     beforeEach(async function(){
-         [admin, addr1, addr2, ...addr]= await ethers.getSigners();
-         Token= await ethers.getContractFactory("Token");
-         hardhatToken= await Token.deploy();
+        [admin, addr1, addr2]= await ethers.getSigners();
+        Token= await ethers.getContractFactory("Token");
+        hardhatToken= await Token.deploy();
     });
         it('has a name', async function () {
             expect(await hardhatToken.name()).to.equal(name);
