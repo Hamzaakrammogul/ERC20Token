@@ -74,7 +74,8 @@ describe ("Token Contract Testing", function(){
         });
         it("Only Owner can burn the tokens", async function(){
             const attackerConnectedContract= await hardhatToken.connect(addr1)
-            await expect(attackerConnectedContract.burn(ethers.utils.parseEther("100"))).to.be.revertedWith("only Owner can access");
+            await expect(attackerConnectedContract.burn(ethers.utils.parseEther("100")))
+            .to.be.revertedWith("only Owner can access");
         });
     });
 });
