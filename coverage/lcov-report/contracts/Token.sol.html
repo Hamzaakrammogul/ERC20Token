@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">58.33% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>10/20</span>
+        <span class='fraction'>14/24</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">25% </span>
+        <span class="strong">40% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>2/8</span>
+        <span class='fraction'>4/10</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">57.14% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>8/14</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">52.38% </span>
+        <span class="strong">60% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>11/21</span>
+        <span class='fraction'>15/25</span>
       </div>
     </div>
   </div>
@@ -109,7 +109,11 @@
 64
 65
 66
-67</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+67
+68
+69
+70
+71</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,8 +128,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -140,9 +145,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">30×</span>
-<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">33×</span>
+<span class="cline-any cline-yes">33×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -157,11 +161,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4×</span>
 <span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,6 +185,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
+import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
 contract Ownable{
@@ -190,7 +199,7 @@ contract Ownable{
     event OwnershipTransferred(address indexed _from, address indexed _to);
 &nbsp;
     modifier onlyOwner{
-        <span class="missing-if-branch" title="else path not taken" >E</span>require (msg.sender==admin, "only Owner can access");
+        require (msg.sender==admin, "only Owner can access");
   _;}
   
 <span class="fstat-no" title="function not covered" >    function transferOwnership(address _to) public onlyOwner {</span>
@@ -206,8 +215,7 @@ contract Ownable{
  contract Token is ERC20, Pausable, Ownable{
  
     constructor() Pausable() Ownable() ERC20 ('My Token', 'HAT')  {
-    
-        _mint(msg.sender, 1000000 * 10 **18);
+        _mint(msg.sender, 1000000*10**18);
         admin= msg.sender;}
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function mint(address to, uint amount) whenNotPaused external {</span>
@@ -221,13 +229,17 @@ contract Ownable{
         return 18; }
 &nbsp;
     function transfer(address to, uint256 amount) public whenNotPaused override returns (bool success) {
+        console.log("Trying to send %s tokens to %s", amount , to);
         <span class="missing-if-branch" title="else path not taken" >E</span>require(balanceOf(msg.sender)&gt;=amount, "Insufficient Balance");
         return super.transfer(to, amount);  }
 &nbsp;
     function transferFrom(address from, address to, uint256 amount) public whenNotPaused override returns (bool success) {
+        console.log("letting %s spend %s tokens on %s", from, amount, to);
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(amount&lt;=balanceOf(from), "Insufficient Balance");
         return super.transferFrom(from, to, amount);  }
 &nbsp;
     function approve(address spender, uint256 amount) public whenNotPaused override returns (bool success) {
+        console.log ("aprrove %s to spend token of amount %s", spender, amount);
         return super.approve(spender, amount); }
 &nbsp;
 <span class="fstat-no" title="function not covered" >    function increaseAllowance(address spender, uint addedValue) public whenNotPaused override returns (bool success) {</span>
@@ -247,7 +259,7 @@ contract Ownable{
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Aug 17 2022 19:34:14 GMT+0500 (Pakistan Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Aug 19 2022 15:01:52 GMT+0500 (Pakistan Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

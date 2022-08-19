@@ -5,12 +5,13 @@ describe ("Token Contract Testing", function(){
     let admin;
     let addr1;
     let addr2;
+    let attacker;
     let name = 'My Token';
     let symbol = 'HAT';
     let decimals= 18; 
 
     beforeEach(async function(){
-         [admin, addr1, addr2]= await ethers.getSigners();
+         [admin, addr1, addr2, ...addr]= await ethers.getSigners();
          Token= await ethers.getContractFactory("Token");
          hardhatToken= await Token.deploy();
     });
@@ -47,7 +48,7 @@ describe ("Token Contract Testing", function(){
             expect(await hardhatToken.balanceOf(addr1.address)).to.equal(ethers.utils.parseEther("1000"));
         });
 
-        it.only("Transfer From", async function(){
+        it("Transfer From", async function(){
             await hardhatToken.transfer(addr1.address, ethers.utils.parseEther("100"));
             const addr1Balance= await hardhatToken.balanceOf(addr1.address);
             expect(addr1Balance).to.equal(ethers.utils.parseEther("100"));
@@ -70,6 +71,10 @@ describe ("Token Contract Testing", function(){
             await hardhatToken.burn(ethers.utils.parseEther("500000"));
             const adminBalanceburn= await hardhatToken.balanceOf(admin.address);
             expect(adminBalanceBeforeBurn.sub(adminBalanceburn)).to.equal(adminBalanceburn);
+        });
+        it("Only Owner can burn the tokens", async function(){
+            const attackerConnectedContract= await hardhatToken.connect(addr1)
+            await expect(attackerConnectedContract.burn(ethers.utils.parseEther("100"))).to.be.revertedWith("only Owner can access");
         });
     });
 });
