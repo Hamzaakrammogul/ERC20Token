@@ -63,9 +63,9 @@ contract Ownable{
     function decreaseAllowance(address spender, uint subtractedValue) public whenNotPaused override returns (bool success) {
         return super.decreaseAllowance(spender, subtractedValue); }
 
-    function pausedSet() public onlyOwner whenNotPaused{
+    function pause() public onlyOwner whenNotPaused{
         return super._pause();   }
 
-    function unPausedSet() public onlyOwner whenPaused{
+    function unpause() public onlyOwner whenPaused{
         return super._unpause();  }   
 }
